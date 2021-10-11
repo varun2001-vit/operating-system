@@ -1,0 +1,85 @@
+#!/bin/bash
+var='Names.txt'
+while read line
+do
+        a=$line
+        a="${a/$'\r'/}"
+        b="$a.sh"
+        mkdir $a
+        cd $a
+        touch $b
+        echo "#!/bin/bash" >> $b
+        echo " echo $a " >> $b
+        chmod 777 $b
+        bash $b
+        cd ..
+done < $var
+........................................................
+
+#!/bin/bash
+mkdir moodle
+cd moodle
+touch a.txt b.txt x.c y.c  c.sh d.sh
+
+echo all the files in the directory
+filename=`ls ./*`
+for file in $filename
+do
+          var=`basename "$file"`
+          echo $var
+
+done
+
+touch textfile shfile cfile
+
+filename=`ls ./*.txt`
+for file in $filename
+do
+        var=`basename -s .txt "$file"`
+        echo $var >> textfile
+done
+
+
+filename=`ls ./*.sh`
+for file in $filename
+do
+        var=`basename -s .sh "$file"`
+        echo $var >> shfile
+done
+
+filename=`ls ./*.c`
+for file in $filename
+do
+         var=`basename -s .c "$file"`
+        echo $var >> cfile
+done
+echo contents in the three files
+echo textfile names
+cat textfile
+echo shfile names
+cat shfile
+echo cfile names
+cat cfile
+................................................
+#!/bin/bash
+
+echo enter the 5 digit num
+read num
+r=$(($num/1000))
+r=$(($r%10))
+echo the number at second position is $r
+
+while [ $num -gt 0 ]
+do
+    i=$(($num%10))
+    if [ $i -ne $r ]
+    then
+            count=$(($count+0))
+    else
+            count=$(($count+1))
+
+    fi
+    num=$((num/10))
+done
+
+echo  total no of occurances is $count
